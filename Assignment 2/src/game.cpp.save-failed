@@ -13,11 +13,6 @@ Game::Game(int rows,int cols)
             board_.push_back(new Piece());
         }
     }
-
-    else
-    {
-        throw std::out_of_range("Game board too big");
-    }
 }
 
 Game::~Game()
@@ -28,10 +23,7 @@ Game::~Game()
     }
 
 }
-void Game::play()
-{
 
-}
 
 const int Game::get_num_rows()
 {

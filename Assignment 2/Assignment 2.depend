@@ -1,0 +1,30 @@
+# depslib dependency file v1.0
+1494431533 source:c:\users\benni\google drive\hr\fjórða Önn\t-528-hlut\verkefni\assignment 2\assignment 2\main.cpp
+	<iostream>
+	<vector>
+	<piece.h>
+	<game.h>
+
+1494431047 source:c:\users\benni\google drive\hr\fjórða Önn\t-528-hlut\verkefni\assignment 2\assignment 2\src\game.cpp
+	"game.h"
+
+1494431578 c:\users\benni\google drive\hr\fjórða Önn\t-528-hlut\verkefni\assignment 2\assignment 2\include\game.h
+	<piece.h>
+	<vector>
+	<ostream>
+
+1494427689 source:c:\users\benni\google drive\hr\fjórða Önn\t-528-hlut\verkefni\assignment 2\assignment 2\src\player.cpp
+	"player.h"
+
+1494427329 c:\users\benni\google drive\hr\fjórða Önn\t-528-hlut\verkefni\assignment 2\assignment 2\include\player.h
+	<set>
+	<tuple>
+
+1494429864 c:\users\benni\google drive\hr\fjórða Önn\t-528-hlut\verkefni\assignment 2\assignment 2\include\piece.h
+	<set>
+	<tuple>
+	<iostream>
+
+1494429428 source:c:\users\benni\google drive\hr\fjórða Önn\t-528-hlut\verkefni\assignment 2\assignment 2\src\piece.cpp
+	"piece.h"
+
