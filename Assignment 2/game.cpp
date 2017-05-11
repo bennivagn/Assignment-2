@@ -34,8 +34,7 @@ void Game::play()
 
 void Game::movePiece(const int from_row, const int from_col, const int to_row, const int to_col)
 {
-    if(from_row < get_num_rows() && from_row >= 0 && from_col < get_num_cols() && from_col >= 0 &&
-       to_row < get_num_rows() && to_row >= 0 && to_col < get_num_cols() && to_col >= 0)
+    if(onBoard(from_row,from_col) && onBoard(to_row,to_col))
     {
         at(to_row,to_col) = at(from_row,from_col);
         at(from_row,from_col).init();
@@ -64,5 +63,20 @@ const int Game::get_num_rows()
 const int Game::get_num_cols()
 {
     return cols_;
+}
+
+bool Game::isEmpty(int row,int col)
+{
+    return at(row,col).getType() == '.';
+}
+
+bool Game::onBoard(int row, int col)
+{
+    if(row < get_num_rows() && row >= 0 && col < get_num_cols() && col >= 0)
+    {
+        return true;
+    }
+    return false;
+
 }
 
