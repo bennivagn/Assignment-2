@@ -2,17 +2,22 @@
 #define GAME_H
 #include <piece.h>
 #include <vector>
+#include <tuple>
 #include <ostream>
 
 
 class Game
 {
     public:
-        Game(int row,int cols);
-        virtual void play();
-        virtual ~Game();
         const int MAXSIZE = 9;
 
+        Game(int row,int cols);
+        virtual void play() = 0;
+        virtual void move(int from_row,char from_col_char,int to_row,char to_col_char) = 0;
+        int mapLetterToInt(char c);
+        virtual bool isLegal(const int from_row, const int from_col, const int to_row, const int to_col) = 0;
+        virtual void movePiece(int from_row,int from_col,int to_row,int to_col);
+        virtual ~Game();
         const int get_num_rows();
         const int get_num_cols();
         friend std::ostream& operator<< (std::ostream& os, Game& g) {
@@ -39,11 +44,20 @@ class Game
         }
 
         Piece& at(int row, int col ) {
-            return *board_[row * cols_ + col];
+            if(row <= rows_ && row >= 0 && col <= cols_ && col >= 0)
+            {
+                return *board_[row * cols_ + col];
+            }
+            else
+            {
+                throw new std::out_of_range("Out of range");
+            }
+
         }
 
     protected:
         std::vector<Piece*> board_;
+        virtual void init();
     private:
         int rows_;
         int cols_;

@@ -10,14 +10,13 @@ class Piece
     public:
         Piece();
         virtual ~Piece();
-        bool isLegal(std::tuple<int,int> move);
-        void setLegalMoves(std::set<std::tuple<int,int> >& moves);
-        std::tuple<int,int> getLocation();
-        void setLocation(std::tuple<int,int> newlocation);
         char getType();
         void setType(char type);
         char getOwner();
         void setOwner(char owner);
+        void init();
+
+        Piece& operator=(const Piece& rhs);
 
         friend std::ostream& operator<< (std::ostream& os, Piece& p) {
 
@@ -28,8 +27,6 @@ class Piece
     protected:
 
     private:
-        std::set<std::tuple<int,int> > legalmoves_;
-        std::tuple <int,int> location_;
         char type_;
         char ownedBy_;
 

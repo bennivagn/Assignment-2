@@ -3,8 +3,7 @@
 using namespace std;
 Piece::Piece()
 {
-    ownedBy_ = 'b';
-    type_ = '.';
+    init();
 }
 
 Piece::~Piece()
@@ -12,27 +11,13 @@ Piece::~Piece()
 
 }
 
-bool Piece::isLegal(tuple<int, int>move)
+Piece& Piece::operator=(const Piece& rhs)
 {
-    //TODO
-    return true;
-}
+    this->type_= rhs.type_;
+    this->ownedBy_ = rhs.ownedBy_;
 
-void Piece::setLegalMoves(set<tuple<int, int>>& moves)
-{
-    //TODO
+    return *this;
 }
-
-tuple<int,int> Piece::getLocation()
-{
-    return location_;
-}
-
-void Piece::setLocation(tuple<int, int>newlocation)
-{
-    location_ = newlocation;
-}
-
 
 char Piece::getType()
 {
@@ -51,6 +36,12 @@ void Piece::setType(char type)
 void Piece::setOwner(char owner)
 {
     ownedBy_ = owner;
+}
+
+void Piece::init()
+{
+    ownedBy_ = 'b';
+    type_ = '.';
 }
 
 
