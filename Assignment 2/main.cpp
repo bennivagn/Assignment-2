@@ -3,14 +3,13 @@
 #include <piece.h>
 #include <game.h>
 #include <foxandhounds.h>
+#include <gamemanager.h>
 
 using namespace std;
 
 int main()
 {
-    FoxandHounds* game = new FoxandHounds();
-    game->play();
-
+    Gamemanager manager;
 
     return 0;
 }

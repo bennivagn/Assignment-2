@@ -9,6 +9,7 @@ Game::Game(int rows,int cols)
     {
         rows_ = rows;
         cols_ = cols;
+        debug_ = false;
 
         init();
     }
@@ -27,10 +28,6 @@ Game::~Game()
     }
 
 }
-void Game::play()
-{
-
-}
 
 void Game::movePiece(const int from_row, const int from_col, const int to_row, const int to_col)
 {
@@ -43,6 +40,7 @@ void Game::movePiece(const int from_row, const int from_col, const int to_row, c
 
 void Game::init()
 {
+    board_.clear();
     for(int i = 0; i < rows_*cols_; i++)
     {
         board_.push_back(new Piece());
@@ -79,4 +77,38 @@ bool Game::onBoard(int row, int col)
     return false;
 
 }
+
+Piece& Game::at(int row, int col )
+{
+    if(row <= rows_ && row >= 0 && col <= cols_ && col >= 0)
+    {
+        return *board_[row * cols_ + col];
+    }
+    else
+    {
+        throw new std::out_of_range("Out of range");
+    }
+}
+
+void Game::setName(std::string name)
+{
+    name_ = name;
+}
+
+std::string Game::getName()
+{
+    return name_;
+}
+
+bool Game::getDebug()
+{
+    return debug_;
+}
+
+void Game::setDebug(bool debug)
+{
+    debug_ = debug;
+}
+
+
 
