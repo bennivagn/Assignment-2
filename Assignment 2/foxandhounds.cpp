@@ -29,6 +29,7 @@ void FoxandHounds::play()
        std::cout << isLegal(foxlocrow_,foxloccol_,(foxlocrow_-1),(foxloccol_-1)) << std::endl;
        std::cout << isLegal(foxlocrow_,foxloccol_,(foxlocrow_+1),(foxloccol_-1)) << std::endl;
        std::cout << isLegal(foxlocrow_,foxloccol_,(foxlocrow_-1),(foxloccol_+1)) << std::endl;
+       std::cout << foxlocrow_ << " " << foxloccol_ << std::endl;
 
     }
 
@@ -125,8 +126,11 @@ void FoxandHounds::move(int from_row,char from_col_char,int to_row,char to_col_c
         if(isLegal(from_row,from_col,to_row,to_col))
         {
             Game::movePiece(from_row,from_col,to_row,to_col);
-            foxlocrow_ = to_row;
-            foxloccol_ = to_col;
+            if(at(from_row,from_col).getType() == 'F')
+            {
+                foxlocrow_ = to_row;
+                foxloccol_ = to_col;
+            }
         }
     }
 }
