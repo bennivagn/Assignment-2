@@ -24,7 +24,7 @@ char Piece::getType()
     return type_;
 }
 
-char Piece::getOwner()
+Player* Piece::getOwner()
 {
     return ownedBy_;
 }
@@ -33,14 +33,14 @@ void Piece::setType(char type)
     type_ = type;
 }
 
-void Piece::setOwner(char owner)
+void Piece::setOwner(Player* owner)
 {
     ownedBy_ = owner;
 }
 
 void Piece::init()
 {
-    ownedBy_ = 'b';
+    ownedBy_ = nullptr;
     type_ = '.';
 }
 

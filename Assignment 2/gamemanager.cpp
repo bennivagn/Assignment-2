@@ -67,11 +67,6 @@ void Gamemanager::start()
     games_.at(selectedGame)->init();
 }
 
-void Gamemanager::legal()
-{
-
-}
-
 void Gamemanager::move()
 {
     char fromcol,tocol;
@@ -89,6 +84,7 @@ void Gamemanager::move()
 
 
     winner = games_.at(selectedGame)->checkWinner();
+    cout << *games_.at(selectedGame);
 
     if(winner != -1)
     {
@@ -124,7 +120,7 @@ void Gamemanager::UI()
         }
         else if(input == "legal")
         {
-            legal();
+            games_.at(selectedGame)->legal();
         }
         else if(input == "move")
         {
@@ -132,7 +128,7 @@ void Gamemanager::UI()
         }
         else if(input == "retract")
         {
-            //TODO
+            games_.at(selectedGame)->retract();
         }
         else if(input == "display")
         {

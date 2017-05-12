@@ -4,6 +4,7 @@
 #include <set>
 #include <tuple>
 #include <iostream>
+#include <player.h>
 
 class Piece
 {
@@ -12,8 +13,8 @@ class Piece
         virtual ~Piece();
         char getType();
         void setType(char type);
-        char getOwner();
-        void setOwner(char owner);
+        Player* getOwner();
+        void setOwner(Player* owner);
         void init();
 
         Piece& operator=(const Piece& rhs);
@@ -28,7 +29,7 @@ class Piece
 
     private:
         char type_;
-        char ownedBy_;
+        Player* ownedBy_;
 
 };
 

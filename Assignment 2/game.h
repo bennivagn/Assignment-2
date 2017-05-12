@@ -4,6 +4,8 @@
 #include <vector>
 #include <tuple>
 #include <ostream>
+#include <player.h>
+#include <stack>
 
 
 class Game
@@ -14,12 +16,13 @@ class Game
         Game(int row,int cols);
         virtual bool move(int from_row,char from_col_char,int to_row,char to_col_char) = 0;
         int mapLetterToInt(char c);
+        char mapIntToLetter(int num);
         bool isEmpty(int row,int col);
         bool onBoard(int row, int col);
         virtual int checkWinner() = 0;
 
         virtual bool isLegal(const int from_row, const int from_col, const int to_row, const int to_col) = 0;
-        virtual void movePiece(int from_row,int from_col,int to_row,int to_col);
+        virtual void movePiece(int from_row,int from_col,int to_row,int to_col,bool retract = false);
         virtual ~Game();
         const int get_num_rows();
         const int get_num_cols();
@@ -52,9 +55,15 @@ class Game
         void setDebug(bool debug);
         bool getDebug();
         virtual void init();
+        virtual void legal() = 0;
+        virtual void retract() = 0;
 
     protected:
-
+        Player player0_;
+        Player player1_;
+        void switchPlayer();
+        Player* currentPlayer_;
+        std::stack<std::tuple<int,int,int,int> > moves_;
 
 
     private:
@@ -63,6 +72,9 @@ class Game
         bool debug_;
         std::string name_;
         std::vector<Piece*> board_;
+
+
+
 
 };
 

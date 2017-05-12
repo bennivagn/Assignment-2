@@ -19,7 +19,6 @@ class Gamemanager
         void list();
         void game();
         void start();
-        void legal();
         void move();
         void commands();
         std::vector<Game*> games_;

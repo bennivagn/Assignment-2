@@ -9,6 +9,7 @@ using namespace std;
 
 int main()
 {
+
     Gamemanager manager;
 
     return 0;
