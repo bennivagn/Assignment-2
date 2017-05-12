@@ -27,6 +27,9 @@ Game::~Game()
         delete *it;
     }
 
+    delete &player0_;
+    delete &player1_;
+
 }
 
 void Game::movePiece(const int from_row, const int from_col, const int to_row, const int to_col,bool retract)
