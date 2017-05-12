@@ -13,13 +13,13 @@ FoxandHounds::~FoxandHounds()
 
 }
 
-int FoxandHounds::checkWinner()
+Player* FoxandHounds::checkWinner()
 {
     for(int i = 0; i < get_num_cols(); i++)
     {
         if(at(get_num_rows()-1,i).getType() == 'F')
         {
-            return 1;
+            return at(get_num_rows()-1,i).getOwner();
         }
     }
 
@@ -30,15 +30,15 @@ int FoxandHounds::checkWinner()
     std::cout << std::endl;
     std::cout << foxlocrow_ << " " << foxloccol_ << std::endl;*/
 
-    if((isLegal(foxlocrow_,foxloccol_,foxlocrow_+1,foxloccol_+1) == false)&&
-       (isLegal(foxlocrow_,foxloccol_,foxlocrow_-1,foxloccol_-1) == false)&&
-       (isLegal(foxlocrow_,foxloccol_,foxlocrow_+1,foxloccol_-1) == false)&&
+    if((isLegal(foxlocrow_,foxloccol_,foxlocrow_+1,foxloccol_+1) == false)||
+       (isLegal(foxlocrow_,foxloccol_,foxlocrow_-1,foxloccol_-1) == false)||
+       (isLegal(foxlocrow_,foxloccol_,foxlocrow_+1,foxloccol_-1) == false)||
        (isLegal(foxlocrow_,foxloccol_,foxlocrow_-1,foxloccol_+1) == false))
     {
-        return 0;
+        return at(foxlocrow_,foxloccol_).getOwner();
     }
 
-    return -1;
+    return nullptr;
 }
 
 void FoxandHounds::legal()

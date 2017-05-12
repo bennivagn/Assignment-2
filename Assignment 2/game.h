@@ -11,21 +11,44 @@
 class Game
 {
     public:
+        //Constant
         const int MAXSIZE = 9;
 
+        //Constructor
         Game(int row,int cols);
-        virtual bool move(int from_row,char from_col_char,int to_row,char to_col_char) = 0;
-        int mapLetterToInt(char c);
-        char mapIntToLetter(int num);
-        bool isEmpty(int row,int col);
-        bool onBoard(int row, int col);
-        virtual int checkWinner() = 0;
 
+        //Destructor
+        virtual ~Game();
+
+        //Pure virtual
+        virtual Player* checkWinner() = 0;
+        virtual void legal() = 0;
+        virtual void retract() = 0;
+        virtual bool move(int from_row,char from_col_char,int to_row,char to_col_char) = 0;
+
+        //Virtual functions
         virtual bool isLegal(const int from_row, const int from_col, const int to_row, const int to_col) = 0;
         virtual void movePiece(int from_row,int from_col,int to_row,int to_col,bool retract = false);
-        virtual ~Game();
+
+        //getter
         const int get_num_rows();
         const int get_num_cols();
+        bool getDebug();
+        Piece& at(int row, int col );
+
+        //setter
+        void setName(std::string name);
+        void setDebug(bool debug);
+        std::string getName();
+
+        //bool functions
+        bool isEmpty(int row,int col);
+        bool onBoard(int row, int col);
+
+        //Mappers
+        int mapLetterToInt(char c);
+        char mapIntToLetter(int num);
+
         friend std::ostream& operator<< (std::ostream& os, Game& g) {
             int count = g.get_num_rows();
             std::string characters = "abcdefghijklmnopqrstuv";
@@ -49,14 +72,8 @@ class Game
             return os;
         }
 
-        Piece& at(int row, int col );
-        std::string getName();
-        void setName(std::string name);
-        void setDebug(bool debug);
-        bool getDebug();
         virtual void init();
-        virtual void legal() = 0;
-        virtual void retract() = 0;
+
 
     protected:
         Player player0_;

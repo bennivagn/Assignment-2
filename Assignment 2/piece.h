@@ -20,7 +20,6 @@ class Piece
         Piece& operator=(const Piece& rhs);
 
         friend std::ostream& operator<< (std::ostream& os, Piece& p) {
-
             os << p.getType();
             return os;
         }

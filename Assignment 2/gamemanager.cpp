@@ -71,7 +71,7 @@ void Gamemanager::move()
 {
     char fromcol,tocol;
     int fromint = 0,toint = 0;
-    int winner = -1;
+    Player* winner = nullptr;
     std::cin >> fromcol;
     std::cin >> fromint;
     std::cin >> tocol;
@@ -86,10 +86,11 @@ void Gamemanager::move()
     winner = games_.at(selectedGame)->checkWinner();
     cout << *games_.at(selectedGame);
 
-    if(winner != -1)
+    if(winner != nullptr)
     {
         std::cout << std::endl;
-        std::cout << "Winner is player: " << winner;
+        std::cout << "Winner is player: " << winner->getPlayer();
+
     }
 
 
