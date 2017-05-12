@@ -3,6 +3,7 @@
 #include <vector>
 #include <game.h>
 #include <foxandhounds.h>
+#include <breakthrough.h>
 
 
 

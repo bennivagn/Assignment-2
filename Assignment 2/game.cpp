@@ -140,5 +140,47 @@ void Game::switchPlayer()
     }
 }
 
+Player* Game::getPlayer_0()
+{
+    return &player0_;
+}
+
+Player* Game::getPlayer_1()
+{
+    return &player1_;
+}
+
+std::ostream& operator<<(std::ostream& os, Game& g)
+{
+     int count = g.get_num_rows();
+            std::string characters = "abcdefghijklmnopqrstuv";
+            for ( int row = g.get_num_rows()-1 ; row >= 0; --row )
+            {
+                os << count << " ";
+                count--;
+                for ( int col = 0; col < g.get_num_cols() ; ++col )
+                {
+                    if(g.at(row,col).getOwner() == g.getPlayer_1())
+                    {
+                        os << (char)tolower(g.at(row,col).getType());
+                    }
+                    else
+                    {
+                        os << g.at(row,col);
+                    }
+                }
+                os << std::endl;
+            }
+
+            os << "  ";
+            for(int i = 0; i < g.get_num_cols(); i++)
+            {
+                os << characters.at(i);
+            }
+
+            return os;
+}
+
+
 
 

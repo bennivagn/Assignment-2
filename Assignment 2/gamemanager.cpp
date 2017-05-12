@@ -6,7 +6,7 @@ using namespace std;
 Gamemanager::Gamemanager()
 {
     games_.push_back(new FoxandHounds());
-    //games_.push_back(new Breakthrough());
+    games_.push_back(new Breakthrough());
     //games_.push_back(new MegaBreakthrough());
     selectedGame = 0;
 

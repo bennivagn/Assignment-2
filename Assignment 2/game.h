@@ -35,6 +35,8 @@ class Game
         const int get_num_cols();
         bool getDebug();
         Piece& at(int row, int col );
+        Player* getPlayer_0();
+        Player* getPlayer_1();
 
         //setter
         void setName(std::string name);
@@ -49,28 +51,8 @@ class Game
         int mapLetterToInt(char c);
         char mapIntToLetter(int num);
 
-        friend std::ostream& operator<< (std::ostream& os, Game& g) {
-            int count = g.get_num_rows();
-            std::string characters = "abcdefghijklmnopqrstuv";
-            for ( int row = g.get_num_rows()-1 ; row >= 0; --row )
-            {
-                os << count << " ";
-                count--;
-                for ( int col = 0; col < g.get_num_cols() ; ++col )
-                {
-                    os << g.at(row,col);
-                }
-                os << std::endl;
-            }
 
-            os << "  ";
-            for(int i = 0; i < g.get_num_cols(); i++)
-            {
-                os << characters.at(i);
-            }
-
-            return os;
-        }
+        friend std::ostream& operator<< (std::ostream& os, Game& g);
 
         virtual void init();
 
