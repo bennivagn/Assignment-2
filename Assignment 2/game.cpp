@@ -51,6 +51,9 @@ void Game::movePiece(const int from_row, const int from_col, const int to_row, c
 void Game::init()
 {
     board_.clear();
+    while(!moves_.empty()){
+        moves_.pop();
+    }
     for(int i = 0; i < rows_*cols_; i++)
     {
         board_.push_back(new Piece());
@@ -60,6 +63,7 @@ void Game::init()
     player1_.setPlayer('1');
 
     currentPlayer_ = &player0_;
+    gameWon_ = false;
 
 }
 
@@ -131,6 +135,20 @@ void Game::setDebug(bool debug)
     debug_ = debug;
 }
 
+int Game::remainingPieces(Player& player)
+{
+    int count = 0;
+    for(int i = 0; i < get_num_rows(); i++)
+    {
+        for(int j = 0; j < get_num_cols(); j++)
+        {
+            if(at(i,j).getOwner() != nullptr && at(i,j).getOwner()->getPlayer() == player.getPlayer())
+                count++;
+        }
+    }
+    return count;
+}
+
 void Game::switchPlayer()
 {
     if(currentPlayer_ == &player0_)
@@ -151,6 +169,11 @@ Player* Game::getPlayer_0()
 Player* Game::getPlayer_1()
 {
     return &player1_;
+}
+
+Player* Game::getCurrentPlayer()
+{
+    return currentPlayer_;
 }
 
 std::ostream& operator<<(std::ostream& os, Game& g)
@@ -180,6 +203,10 @@ std::ostream& operator<<(std::ostream& os, Game& g)
             {
                 os << characters.at(i);
             }
+
+            os << std::endl;
+            os << g.getCurrentPlayer()->getPlayer() << std::endl;
+            os << g.remainingPieces(*g.getPlayer_0()) << " " << g.remainingPieces(*g.getPlayer_1());
 
             return os;
 }

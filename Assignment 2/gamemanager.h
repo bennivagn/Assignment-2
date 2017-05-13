@@ -4,6 +4,7 @@
 #include <game.h>
 #include <foxandhounds.h>
 #include <breakthrough.h>
+#include <megabreakthrough.h>
 
 
 

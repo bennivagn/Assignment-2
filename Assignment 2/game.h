@@ -37,6 +37,7 @@ class Game
         Piece& at(int row, int col );
         Player* getPlayer_0();
         Player* getPlayer_1();
+        Player* getCurrentPlayer();
 
         //setter
         void setName(std::string name);
@@ -63,6 +64,8 @@ class Game
         void switchPlayer();
         Player* currentPlayer_;
         std::stack<std::tuple<int,int,int,int> > moves_;
+        int remainingPieces(Player&  player);
+        bool gameWon_;
 
 
     private:

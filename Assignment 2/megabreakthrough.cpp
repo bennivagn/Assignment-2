@@ -1,27 +1,27 @@
-#include "breakthrough.h"
+#include "megabreakthrough.h"
 #include <vector>
 #include <string>
 
 using namespace std;
 
-Breakthrough::Breakthrough() : Game(8,8)
+MegaBreakthrough::MegaBreakthrough() : Game(8,8)
 {
     init();
 }
 
-Breakthrough::~Breakthrough()
+MegaBreakthrough::~MegaBreakthrough()
 {
     //dtor
 }
-void Breakthrough::init()
-{
-    setName("Breakthrough");
-    Game::init();
 
+void MegaBreakthrough::init()
+{
+    setName("Mega Breakthrough");
+    Game::init();
 
     for(int i = 0; i < get_num_cols(); i++)
     {
-        at(get_num_rows()-1,i).setType('P');
+        at(get_num_rows()-1,i).setType('M');
         at(get_num_rows()-2,i).setType('P');
         at(get_num_rows()-1,i).setOwner(&player1_);
         at(get_num_rows()-2,i).setOwner(&player1_);
@@ -29,55 +29,15 @@ void Breakthrough::init()
 
     for(int i = get_num_cols()-1; i >= 0; i--)
     {
-        at(0,i).setType('P');
+        at(0,i).setType('M');
         at(1,i).setType('P');
         at(0,i).setOwner(&player0_);
         at(1,i).setOwner(&player0_);
     }
 
-
 }
 
-bool Breakthrough::isLegal(const int from_row, const int from_col, const int to_row, const int to_col)
-{
-    if(gameWon_ == true)
-    {
-        return false;
-    }
-    char type = at(from_row,from_col).getType();
-    if(type == '.')
-        return false;
-
-    switch(currentPlayer_->getPlayer())
-    {
-        case '0':
-
-                if((to_row == from_row + 1 && to_col == from_col -1 && onBoard(to_row,to_col)) ||
-                   (to_row == from_row + 1 && to_col == from_col + 1 && onBoard(to_row,to_col))||
-                   (to_row == from_row + 1 && to_col == from_col && onBoard(to_row,to_col) && isEmpty(to_row,to_col)))
-                   {
-                        return true;
-                   }
-                return false;
-            break;
-
-        case '1':
-                if((to_row == from_row - 1 && to_col == from_col -1 && onBoard(to_row,to_col)) ||
-                   (to_row == from_row - 1 && to_col == from_col + 1 && onBoard(to_row,to_col))||
-                   (to_row == from_row - 1 && to_col == from_col && onBoard(to_row,to_col) && isEmpty(to_row,to_col)))
-                {
-                    return true;
-                }
-                return false;
-                break;
-
-        default: return false;
-        break;
-    }
-}
-
-
-bool Breakthrough::move(int from_row, char from_col_char, int to_row, char to_col_char)
+bool MegaBreakthrough::move(int from_row, char from_col_char, int to_row, char to_col_char)
 {
     from_row = from_row - 1;
     to_row = to_row - 1;
@@ -107,9 +67,10 @@ bool Breakthrough::move(int from_row, char from_col_char, int to_row, char to_co
     {
         return false;
     }
+
 }
 
-Player* Breakthrough::checkWinner()
+Player* MegaBreakthrough::checkWinner()
 {
     for(int j = 0; j < get_num_cols(); j++)
     {
@@ -138,11 +99,9 @@ Player* Breakthrough::checkWinner()
     }
 
     return nullptr;
-
-
 }
 
-void Breakthrough::legal()
+void MegaBreakthrough::legal()
 {
     vector<string> legalmoves;
     string s = "";
@@ -164,6 +123,12 @@ void Breakthrough::legal()
                         if(isLegal(i,j,i+1,j))
                         {
                             s = Game::mapIntToLetter(j) + to_string(i+2);
+                            legalmoves.push_back(s);
+                        }
+
+                        if(isLegal(i,j,i+2,j))
+                        {
+                            s = Game::mapIntToLetter(j) + to_string(i+3);
                             legalmoves.push_back(s);
                         }
 
@@ -195,6 +160,11 @@ void Breakthrough::legal()
                             s = Game::mapIntToLetter(j) + to_string(i);
                             legalmoves.push_back(s);
                         }
+                        if(isLegal(i,j,i-2,j))
+                        {
+                            s = Game::mapIntToLetter(j) + to_string(i-1);
+                            legalmoves.push_back(s);
+                        }
 
                         if(isLegal(i,j,i-1,j-1))
                         {
@@ -215,17 +185,47 @@ void Breakthrough::legal()
         }
 }
 
-void Breakthrough::retract()
+void MegaBreakthrough::retract()
 {
-    if(!moves_.empty() && gameWon_!= true)
-    {
-        switchPlayer();
-        tuple<int,int,int,int> m = moves_.top();
-        moves_.pop();
-        bool val = true;
-        Game::movePiece(get<2>(m),get<3>(m),get<0>(m),get<1>(m),val);
-        cout << endl;
-        cout << *this << endl;
 
+}
+
+bool MegaBreakthrough::isLegal(const int from_row, const int from_col, const int to_row, const int to_col)
+{
+    if(gameWon_ == true)
+    {
+        return false;
+    }
+    char type = at(from_row,from_col).getType();
+    if(type == '.')
+        return false;
+
+    switch(currentPlayer_->getPlayer())
+    {
+        case '0':
+
+                if((to_row == from_row + 1 && to_col == from_col -1 && onBoard(to_row,to_col)) ||
+                   (to_row == from_row + 1 && to_col == from_col + 1 && onBoard(to_row,to_col))||
+                   (to_row == from_row + 1 && to_col == from_col && onBoard(to_row,to_col) && isEmpty(to_row,to_col)) ||
+                   (to_row == from_row + 2 && to_col == from_col && onBoard(to_row,to_col) && isEmpty(to_row-1,to_col) && isEmpty(to_row,to_col) && at(from_row,from_col).getType() == 'M'))
+                   {
+                        return true;
+                   }
+                return false;
+            break;
+
+        case '1':
+                if((to_row == from_row - 1 && to_col == from_col -1 && onBoard(to_row,to_col)) ||
+                   (to_row == from_row - 1 && to_col == from_col + 1 && onBoard(to_row,to_col))||
+                   (to_row == from_row - 1 && to_col == from_col && onBoard(to_row,to_col) && isEmpty(to_row,to_col)) ||
+                   (to_row == from_row - 2 && to_col == from_col && onBoard(to_row,to_col) && isEmpty(to_row+1,to_col) && isEmpty(to_row,to_col) && at(from_row,from_col).getType() == 'M'))
+                {
+                    return true;
+                }
+                return false;
+                break;
+
+        default: return false;
+        break;
     }
 }

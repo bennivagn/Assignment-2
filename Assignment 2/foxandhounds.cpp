@@ -19,6 +19,7 @@ Player* FoxandHounds::checkWinner()
     {
         if(at(get_num_rows()-1,i).getType() == 'F')
         {
+            gameWon_ = true;
             return at(get_num_rows()-1,i).getOwner();
         }
     }
@@ -35,6 +36,7 @@ Player* FoxandHounds::checkWinner()
        (isLegal(foxlocrow_,foxloccol_,foxlocrow_+1,foxloccol_-1) == false)||
        (isLegal(foxlocrow_,foxloccol_,foxlocrow_-1,foxloccol_+1) == false))
     {
+        gameWon_ = true;
         return at(foxlocrow_,foxloccol_).getOwner();
     }
 
@@ -114,6 +116,10 @@ void FoxandHounds::legal()
 
 bool FoxandHounds::isLegal(const int from_row, const int from_col, const int to_row, const int to_col)
 {
+    if(gameWon_ == true)
+    {
+        return false;
+    }
     char type = at(from_row,from_col).getType();
     if(type == '.')
         return false;
@@ -204,7 +210,7 @@ bool FoxandHounds::move(int from_row,char from_col_char,int to_row,char to_col_c
 void FoxandHounds::retract()
 {
 
-    if(!moves_.empty())
+    if(!moves_.empty() && gameWon_!= true)
     {
         switchPlayer();
         tuple<int,int,int,int> m = moves_.top();
