@@ -25,6 +25,7 @@ class Gamemanager
         void commands();
         std::vector<Game*> games_;
         int selectedGame;
+        void printLegal(std::vector<std::string> legal);
 
 };
 

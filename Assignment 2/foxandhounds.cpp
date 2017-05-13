@@ -43,7 +43,7 @@ Player* FoxandHounds::checkWinner()
     return nullptr;
 }
 
-void FoxandHounds::legal()
+std::vector<string> FoxandHounds::legal()
 {
     vector<string> legalmoves;
     string s = "";
@@ -51,32 +51,26 @@ void FoxandHounds::legal()
     {
        if(isLegal(foxlocrow_,foxloccol_,foxlocrow_+1,foxloccol_+1))
        {
-            s = Game::mapIntToLetter(foxloccol_+1) + to_string(foxlocrow_+2);
+            s = Game::mapIntToLetter(foxloccol_) + to_string(foxlocrow_+1) + Game::mapIntToLetter(foxloccol_+1) + to_string(foxlocrow_+2);
             legalmoves.push_back(s);
        }
        if(isLegal(foxlocrow_,foxloccol_,foxlocrow_-1,foxloccol_-1))
        {
-            s = Game::mapIntToLetter(foxloccol_-1) + to_string(foxlocrow_);
+            s = Game::mapIntToLetter(foxloccol_) + to_string(foxlocrow_+1) + Game::mapIntToLetter(foxloccol_-1) + to_string(foxlocrow_);
             legalmoves.push_back(s);
        }
        if(isLegal(foxlocrow_,foxloccol_,foxlocrow_+1,foxloccol_-1))
        {
-            s = Game::mapIntToLetter(foxloccol_-1) + to_string(foxlocrow_+2);
+            s = Game::mapIntToLetter(foxloccol_) + to_string(foxlocrow_+1) + Game::mapIntToLetter(foxloccol_-1) + to_string(foxlocrow_+2);
             legalmoves.push_back(s);
        }
        if(isLegal(foxlocrow_,foxloccol_,foxlocrow_-1,foxloccol_+1))
        {
-            s = Game::mapIntToLetter(foxloccol_+1) + to_string(foxlocrow_);
+            s = Game::mapIntToLetter(foxloccol_) + to_string(foxlocrow_+1) + Game::mapIntToLetter(foxloccol_+1) + to_string(foxlocrow_);
             legalmoves.push_back(s);
        }
 
-       cout << "From: " << Game::mapIntToLetter(foxloccol_) + to_string(foxlocrow_+1)<< " To: ";
-       for(auto l : legalmoves)
-       {
-           cout << l << ", ";
-       }
-       cout << endl;
-       legalmoves.clear();
+      return legalmoves;
 
     }
     else
@@ -89,27 +83,22 @@ void FoxandHounds::legal()
                 {
                     if(isLegal(i,j,i-1,j+1))
                     {
-                        s = Game::mapIntToLetter(j+1) + to_string(i);
+                        s = Game::mapIntToLetter(j) + to_string(i+1) + Game::mapIntToLetter(j+1) + to_string(i);
                         legalmoves.push_back(s);
                     }
 
                     if(isLegal(i,j,i-1,j-1))
                     {
-                        s = Game::mapIntToLetter(j-1) + to_string(i);
+                        s = Game::mapIntToLetter(j) + to_string(i+1) + Game::mapIntToLetter(j-1) + to_string(i);
                         legalmoves.push_back(s);
                     }
 
-                    cout << "From: " << Game::mapIntToLetter(j) + to_string(i+1)<< " To: ";
-                    for(auto l : legalmoves)
-                    {
-                        cout << l << ", ";
-                    }
-                    cout << endl;
-                    legalmoves.clear();
+
 
                 }
             }
         }
+        return legalmoves;
     }
 
 }
@@ -213,12 +202,10 @@ void FoxandHounds::retract()
     if(!moves_.empty() && gameWon_!= true)
     {
         switchPlayer();
-        tuple<int,int,int,int> m = moves_.top();
+        tuple<int,int,int,int,Piece> m = moves_.top();
         moves_.pop();
         bool val = true;
         Game::movePiece(get<2>(m),get<3>(m),get<0>(m),get<1>(m),val);
-        cout << endl;
-        cout << *this << endl;
 
     }
 

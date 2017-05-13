@@ -37,14 +37,12 @@ void Game::movePiece(const int from_row, const int from_col, const int to_row, c
 
     if(onBoard(from_row,from_col) && onBoard(to_row,to_col))
     {
-        at(to_row,to_col) = at(from_row,from_col);
-        at(from_row,from_col).init();
         if(retract == false)
         {
-            moves_.push(make_tuple(from_row,from_col,to_row,to_col));
+            moves_.push(make_tuple(from_row,from_col,to_row,to_col,at(to_row,to_col)));
         }
-
-
+        at(to_row,to_col) = at(from_row,from_col);
+        at(from_row,from_col).init();
     }
 }
 

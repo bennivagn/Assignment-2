@@ -22,6 +22,15 @@ Gamemanager::~Gamemanager()
     }
 }
 
+void Gamemanager::printLegal(vector<string> legal)
+{
+    cout << endl;
+    for(auto l : legal)
+    {
+        cout << l << endl;
+    }
+}
+
 void Gamemanager::commands()
 {
     cout << endl;
@@ -121,7 +130,7 @@ void Gamemanager::UI()
         }
         else if(input == "legal")
         {
-            games_.at(selectedGame)->legal();
+            printLegal(games_.at(selectedGame)->legal());
         }
         else if(input == "move")
         {

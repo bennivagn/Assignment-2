@@ -142,7 +142,7 @@ Player* Breakthrough::checkWinner()
 
 }
 
-void Breakthrough::legal()
+std::vector<string> Breakthrough::legal()
 {
     vector<string> legalmoves;
     string s = "";
@@ -157,62 +157,49 @@ void Breakthrough::legal()
                     {
                         if(isLegal(i,j,i+1,j+1))
                         {
-                            s = Game::mapIntToLetter(j+1) + to_string(i+2);
+                            s = Game::mapIntToLetter(j) + to_string(i+1) + Game::mapIntToLetter(j+1) + to_string(i+2);
                             legalmoves.push_back(s);
                         }
 
                         if(isLegal(i,j,i+1,j))
                         {
-                            s = Game::mapIntToLetter(j) + to_string(i+2);
+                            s = Game::mapIntToLetter(j) + to_string(i+1) + Game::mapIntToLetter(j) + to_string(i+2);
                             legalmoves.push_back(s);
                         }
 
                         if(isLegal(i,j,i+1,j-1))
                         {
-                            s = Game::mapIntToLetter(j-1) + to_string(i+2);
+                            s = Game::mapIntToLetter(j) + to_string(i+1) + Game::mapIntToLetter(j-1) + to_string(i+2);
                             legalmoves.push_back(s);
                         }
-
-                        cout << "From: " << Game::mapIntToLetter(j) + to_string(i+1)<< " To: ";
-                        for(auto l : legalmoves)
-                        {
-                            cout << l << ", ";
-                        }
-                        cout << endl;
-                        legalmoves.clear();
 
                     }
                     else if(at(i,j).getOwner()->getPlayer() == player1_.getPlayer() && currentPlayer_->getPlayer() == player1_.getPlayer())
                     {
                         if(isLegal(i,j,i-1,j+1))
                         {
-                            s = Game::mapIntToLetter(j+1) + to_string(i);
+                            s = Game::mapIntToLetter(j) + to_string(i+1) + Game::mapIntToLetter(j+1) + to_string(i);
                             legalmoves.push_back(s);
                         }
 
                         if(isLegal(i,j,i-1,j))
                         {
-                            s = Game::mapIntToLetter(j) + to_string(i);
+                            s = Game::mapIntToLetter(j) + to_string(i+1) + Game::mapIntToLetter(j) + to_string(i);
                             legalmoves.push_back(s);
                         }
 
                         if(isLegal(i,j,i-1,j-1))
                         {
-                            s = Game::mapIntToLetter(j-1) + to_string(i);
+                            s = Game::mapIntToLetter(j) + to_string(i+1) + Game::mapIntToLetter(j-1) + to_string(i);
                             legalmoves.push_back(s);
                         }
 
-                        cout << "From: " << Game::mapIntToLetter(j) + to_string(i+1)<< " To: ";
-                        for(auto l : legalmoves)
-                        {
-                            cout << l << ", ";
-                        }
-                        cout << endl;
-                        legalmoves.clear();
+
                     }
                 }
             }
         }
+    return legalmoves;
 }
 
 void Breakthrough::retract()
@@ -220,12 +207,11 @@ void Breakthrough::retract()
     if(!moves_.empty() && gameWon_!= true)
     {
         switchPlayer();
-        tuple<int,int,int,int> m = moves_.top();
+        tuple<int,int,int,int,Piece> m = moves_.top();
         moves_.pop();
         bool val = true;
         Game::movePiece(get<2>(m),get<3>(m),get<0>(m),get<1>(m),val);
-        cout << endl;
-        cout << *this << endl;
+        at(get<2>(m), get<3>(m)) = get<4>(m);
 
     }
 }
